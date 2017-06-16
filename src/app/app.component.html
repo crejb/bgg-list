@@ -1,3 +1,20 @@
-<h1>
-  {{title}}
-</h1>
+<md-toolbar>
+  <span>Third Line</span>
+  <span class="example-spacer"></span>
+  <img src="assets/icon.png">
+</md-toolbar>
+
+<div>
+  <md-input-container style='display:inline-block'>
+    <input mdInput placeholder="Geeklist URL/ID" [(ngModel)]="listSearchTerm">
+  </md-input-container>
+  <button style='display:inline-block' md-raised-button (click)="search()"><md-icon>search</md-icon></button>
+</div>
+
+<div ng-if='errorMessage'>
+  <span color='warn'>{{errorMessage}}</span>
+</div>
+
+<div ng-if='geeklist'>
+  <span>{{geekList.geeklist.title}}</span>
+</div>

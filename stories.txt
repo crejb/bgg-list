@@ -1,0 +1,34 @@
+identify a geeklist by name/id/url
+Show summary
+Show list of games, for each:
+-title
+-rating
+-rank
+-number of players
+-optional: description/image
+
+Sort options:
+-original/creator order
+-name
+-rating
+-rank
+-game release date/age
+-date added to list
+-likes within list
+
+Filter option:
+-name contains (or this could be search)
+-rating
+-rank
+-#players
+-game release date/age
+-date added to list
+-tags?
+
+API
+get geeklist (v1):
+http://www.boardgamegeek.com/xmlapi/geeklist/196401?comments=0
+
+get boardgame item (v2):
+Use objectId from geeklist
+http://www.boardgamegeek.com/xmlapi2/thing?id=124708
