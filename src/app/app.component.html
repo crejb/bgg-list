@@ -11,10 +11,13 @@
   <button style='display:inline-block' md-raised-button (click)="search()"><md-icon>search</md-icon></button>
 </div>
 
-<div ng-if='errorMessage'>
+<md-progress-bar *ngIf="searchInProgress" color="primary" mode="query"></md-progress-bar>
+
+<div *ngIf='errorMessage'>
   <span color='warn'>{{errorMessage}}</span>
 </div>
 
-<div ng-if='geeklist'>
-  <span>{{geekList.geeklist.title}}</span>
+<div *ngIf='geekList'>
+  <span>{{geekList.name}}</span>
+  <app-geek-list-item *ngFor="let item of geekList.items" [item]="item"></app-geek-list-item>
 </div>

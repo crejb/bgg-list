@@ -32,3 +32,5 @@ http://www.boardgamegeek.com/xmlapi/geeklist/196401?comments=0
 get boardgame item (v2):
 Use objectId from geeklist
 http://www.boardgamegeek.com/xmlapi2/thing?id=124708
+
+196401

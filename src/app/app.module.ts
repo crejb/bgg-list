@@ -9,10 +9,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { GeekListSearchService } from './geek-list-search.service';
+import { GeekListItemComponent } from './geek-list-item/geek-list-item.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    GeekListItemComponent
   ],
   imports: [
     BrowserModule,
