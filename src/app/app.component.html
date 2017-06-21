@@ -1,23 +1,55 @@
-<md-toolbar>
-  <span>Third Line</span>
-  <span class="example-spacer"></span>
+<md-toolbar class="top-toolbar">
   <img src="assets/icon.png">
+  <span>Better GeekList</span>
+  <span class="example-spacer"></span>
+  <span *ngIf="geekList">
+    <md-input-container style='display:inline-block'>
+      <input mdInput [(ngModel)]="listSearchTerm">
+    </md-input-container>
+    <md-icon class="action-icon" (click)="search()">search</md-icon>
+  </span>
 </md-toolbar>
 
-<div>
-  <md-input-container style='display:inline-block'>
-    <input mdInput placeholder="Geeklist URL/ID" [(ngModel)]="listSearchTerm">
-  </md-input-container>
-  <button style='display:inline-block' md-raised-button (click)="search()"><md-icon>search</md-icon></button>
-</div>
+<div class="body-container">
+  <div class="body-content">
 
-<md-progress-bar *ngIf="searchInProgress" color="primary" mode="query"></md-progress-bar>
+    <div *ngIf="!geekList">
+      <md-input-container style='display:inline-block'>
+        <input mdInput placeholder="Geeklist URL/ID" [(ngModel)]="listSearchTerm">
+      </md-input-container>
+      <md-icon class="action-icon" (click)="search()">search</md-icon>
+    </div>
 
-<div *ngIf='errorMessage'>
-  <span color='warn'>{{errorMessage}}</span>
-</div>
+    <md-progress-bar *ngIf="searchInProgress" color="primary" mode="query"></md-progress-bar>
 
-<div *ngIf='geekList'>
-  <span>{{geekList.name}}</span>
-  <app-geek-list-item *ngFor="let item of geekList.items" [item]="item"></app-geek-list-item>
+    <div *ngIf='errorMessage'>
+      <span color='warn'>{{errorMessage}}</span>
+    </div>
+
+    <div *ngIf='geekList'>
+      <h1>{{geekList.name}}</h1>
+      <div>
+
+        <md-input-container style='display:inline-block'>
+          <input mdInput placeholder="Filter" [(ngModel)]="itemFilterTerm" (ngModelChange)="itemFilterTermChanged()">
+        </md-input-container>
+        <md-icon class="action-icon" (click)="clearItemFilterTerm()">close</md-icon>
+
+        <div class="action-icon" style='display:inline-block' (click)="sortBy('name')">
+          Name
+          <md-icon *ngIf="isSortedBy('name') && currentSortDirection == 'descending'">arrow_drop_down</md-icon>
+          <md-icon *ngIf="isSortedBy('name') && currentSortDirection == 'ascending'">arrow_drop_up</md-icon>
+        </div>
+
+        <div class="action-icon" style='display:inline-block' (click)="sortBy('thumbs')">
+          Thumbs
+          <md-icon *ngIf="isSortedBy('thumbs') && currentSortDirection == 'descending'">arrow_drop_down</md-icon>
+          <md-icon *ngIf="isSortedBy('thumbs') && currentSortDirection == 'ascending'">arrow_drop_up</md-icon>
+        </div>
+
+
+      </div>
+      <app-geek-list-item *ngFor="let item of displayItems" [item]="item"></app-geek-list-item>
+    </div>
+  </div>
 </div>

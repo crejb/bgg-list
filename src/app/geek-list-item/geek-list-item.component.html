@@ -1,8 +1,16 @@
 <md-card class="item-card">
   <md-card-title>{{item.name}}</md-card-title>
   <md-card-content>
-    <div>Added: {{item.addedDate}}</div>
-    <div>
-      <md-icon>thumb_up</md-icon> {{item.thumbs}}</div>
+    <div class="item-card-container">
+      <span class="item-card-content">
+        {{item.thumbs}} <md-icon>thumb_up</md-icon>
+      </span>
+      <span class="item-card-content">
+        8.5/10 <md-icon>grade</md-icon>
+      </span>
+      <span class="item-card-content">
+        2-4 <md-icon>group</md-icon>
+      </span>
+    </div>
   </md-card-content>
 </md-card>
