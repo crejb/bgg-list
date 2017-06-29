@@ -1,0 +1,6 @@
+<div class="action-icon" style='display:inline-block' (click)="toggleSort()">
+  {{sortTypeName}}
+  <md-icon *ngIf="!isSortActive">import_export</md-icon>
+  <md-icon *ngIf="isSortActive && currentSortDirection == SortDirections.Descending">arrow_downward</md-icon>
+  <md-icon *ngIf="isSortActive && currentSortDirection == SortDirections.Ascending">arrow_upward</md-icon>
+</div>

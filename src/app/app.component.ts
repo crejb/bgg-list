@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { GeekListSearchService } from './geek-list-search.service';
 import { GeekList } from './geek-list';
 import { GeekListItem } from './geek-list-item';
+import { SortTypes } from './sort-types.enum';
+import { SortDirections } from './sort-directions.enum';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +18,7 @@ export class AppComponent {
   public errorMessage;
   public searchInProgress: boolean;
   public displayItems: Array<GeekListItem>;
+  public sortTypes = [SortTypes.Name, SortTypes.Rating, SortTypes.Thumbs];
 
   constructor(private listSearchService: GeekListSearchService) {
     this.listSearchTerm = '196401';
@@ -53,37 +56,27 @@ export class AppComponent {
     this.itemFilterTermChanged();
   }
 
-  public currentSortBy: string;
-  public currentSortDirection: string;
+  public currentSortType : SortTypes;
 
-  sortBy(sortType: string): void {
-    if (this.isSortedBy(sortType)) {
-      this.currentSortDirection = this.currentSortDirection == 'ascending' ? 'descending' : 'ascending';
-    } else {
-      this.currentSortBy = sortType;
-      this.currentSortDirection = 'ascending';
-    }
-
+  onSortToggled(event: [SortTypes, SortDirections]): void {
+    this.currentSortType = event[0];
+    console.log('sorting by ' + event[0] + ':' + event[1]);
     this.displayItems = this.geekList.items.sort((a, b) => {
-      let lessThan = this.getSortValue(a, this.currentSortBy) < this.getSortValue(b, this.currentSortBy);
-      if (this.currentSortDirection == 'descending') {
+      let lessThan = this.getSortValue(a, event[0]) < this.getSortValue(b, event[0]);
+      if (event[1] == SortDirections.Descending) {
         return lessThan ? 1 : -1;
       } else {
         return lessThan ? -1 : 1;
       }
-    })
-
+    });
   }
 
-  getSortValue(item: GeekListItem, sortType: string): any {
+  getSortValue(item: GeekListItem, sortType: SortTypes): any {
     switch (sortType) {
-      case 'name': return item.name;
-      case 'thumbs': return item.thumbs;
+      case SortTypes.Name: return item.name;
+      case SortTypes.Thumbs: return item.thumbs;
+      case SortTypes.Rating: return item.id;
     }
     return null;
-  }
-
-  isSortedBy(sortType: string): boolean {
-    return this.currentSortBy == sortType;
   }
 }

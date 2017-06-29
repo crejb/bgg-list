@@ -29,25 +29,16 @@
     <div *ngIf='geekList'>
       <h1>{{geekList.name}}</h1>
       <div>
-
+        Filter by:
         <md-input-container style='display:inline-block'>
-          <input mdInput placeholder="Filter" [(ngModel)]="itemFilterTerm" (ngModelChange)="itemFilterTermChanged()">
+          <input mdInput placeholder="Name" [(ngModel)]="itemFilterTerm" (ngModelChange)="itemFilterTermChanged()">
         </md-input-container>
         <md-icon class="action-icon" (click)="clearItemFilterTerm()">close</md-icon>
-
-        <div class="action-icon" style='display:inline-block' (click)="sortBy('name')">
-          Name
-          <md-icon *ngIf="isSortedBy('name') && currentSortDirection == 'descending'">arrow_drop_down</md-icon>
-          <md-icon *ngIf="isSortedBy('name') && currentSortDirection == 'ascending'">arrow_drop_up</md-icon>
-        </div>
-
-        <div class="action-icon" style='display:inline-block' (click)="sortBy('thumbs')">
-          Thumbs
-          <md-icon *ngIf="isSortedBy('thumbs') && currentSortDirection == 'descending'">arrow_drop_down</md-icon>
-          <md-icon *ngIf="isSortedBy('thumbs') && currentSortDirection == 'ascending'">arrow_drop_up</md-icon>
-        </div>
-
-
+      </div>
+      <div>
+        Sort by:
+        <app-geek-list-sort-criteria *ngFor="let sortType of sortTypes" [sortType]='sortType' [currentSortType]='currentSortType'
+          (sortToggled)='onSortToggled($event)'></app-geek-list-sort-criteria>
       </div>
       <app-geek-list-item *ngFor="let item of displayItems" [item]="item"></app-geek-list-item>
     </div>
