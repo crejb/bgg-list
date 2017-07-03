@@ -1,16 +1,25 @@
 <md-card class="item-card">
-  <md-card-title>{{item.name}}</md-card-title>
   <md-card-content>
     <div class="item-card-container">
-      <span class="item-card-content">
-        {{item.thumbs}} <md-icon>thumb_up</md-icon>
-      </span>
-      <span class="item-card-content">
-        8.5/10 <md-icon>grade</md-icon>
-      </span>
-      <span class="item-card-content">
-        2-4 <md-icon>group</md-icon>
-      </span>
+      <h3 style="flex:0 1 60%">{{item.summary.name}}</h3><md-spinner *ngIf="loading"></md-spinner>
+      <div style="flex:0 1 40%">
+        <div style="display:flex;">
+          <span class="item-card-value"><md-icon class="inline-icon">grade</md-icon>
+            <span *ngIf="!loading">{{item.rating}}</span>
+          </span>
+          <span class="item-card-value"><md-icon class="inline-icon">list</md-icon>
+            <span *ngIf="!loading">{{item.rank}}</span>
+          </span>
+        </div>
+        <div style="display:flex;">
+          <span class="item-card-value"><md-icon class="inline-icon">group</md-icon>
+            <span *ngIf="!loading">{{item.minPlayers}}-{{item.maxPlayers}}</span>
+          </span>
+          <span class="item-card-value"><md-icon class="inline-icon">thumb_up</md-icon>
+            {{item.summary.thumbs}}
+          </span>
+        </div>
+      </div>
     </div>
   </md-card-content>
 </md-card>

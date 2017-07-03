@@ -1,4 +1,4 @@
-export class GeekListItem {
+export class GeekListItemSummary {
     constructor(
         public id:number,
         public objectId:number,

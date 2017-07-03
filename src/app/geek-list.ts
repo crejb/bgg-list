@@ -1,4 +1,4 @@
-import { GeekListItem } from './geek-list-item';
+import { GeekListItemSummary } from './geek-list-item-summary';
 
 export class GeekList {
     constructor(
@@ -7,6 +7,6 @@ export class GeekList {
         public addedDate:Date,
         public thumbs:number,
         public description:string,
-        public items:GeekListItem[]
+        public items:GeekListItemSummary[]
     ){}
 }

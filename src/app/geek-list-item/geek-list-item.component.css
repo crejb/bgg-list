@@ -1,4 +1,33 @@
 /*.item-card { margin-top: 10px; margin-bottom: 10px; }*/
 
 .item-card-container { display: flex; }
-.item-card-content { flex: 1; }
+.item-card-value { 
+    flex: 1; 
+    background-color: lightgray;
+    margin: .5em;
+    padding: .3em 0em .3em .5em;
+    height: 1.6em;
+    border-radius: 4px;
+
+    min-height: 20px;
+    display: inline-flex;
+    align-items: center;
+}
+
+.discard-card {
+    /*cursor: pointer;*/
+    position: relative;
+    left: 0;
+    background-color: #EEE;
+    margin: .5em;
+    padding: .3em 0em .3em .5em;
+    height: 1.6em;
+    border-radius: 4px;
+}
+
+md-spinner {
+  float:left; 
+  width: 24px; 
+  height: 24px; 
+  margin: 5px 10px 0px 0px;
+}

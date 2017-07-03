@@ -34,3 +34,9 @@ Use objectId from geeklist
 http://www.boardgamegeek.com/xmlapi2/thing?id=124708
 
 196401
+
+todo:
+-better way to do async item details
+-better styling for cards
+-sort options for item details
+-filter options

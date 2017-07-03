@@ -4,18 +4,18 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
-//import {Parser} from 'xml2js';
 import * as xml2js from 'xml2js';
 
 import { GeekList } from './geek-list';
-import { GeekListItem } from './geek-list-item';
+import { GeekListItemSummary } from './geek-list-item-summary';
+import { ItemDetailsRetrievalService } from './item-details-retrieval.service';
 
 @Injectable()
 export class GeekListSearchService {
 
   private geekListUrl = 'http://www.boardgamegeek.com/xmlapi/geeklist/';
 
-  constructor(private http: Http) {
+  constructor(private http: Http, private itemDetailsRetrievalService : ItemDetailsRetrievalService) {
 
   }
 
@@ -26,7 +26,7 @@ export class GeekListSearchService {
       .catch(this.handleError)
       .toPromise()
       .then(this.extractData)
-      .then((result) => this.mapResponseToGeekList(result));
+      .then((res) => this.mapResponseToGeekList(res));
   }
 
   private extractData(res) {
@@ -48,9 +48,9 @@ export class GeekListSearchService {
     return new GeekList(geeklist.title, geeklist.id, geeklist.postdate, geeklist.thumbs, geeklist.description, items);
   }
 
-  private extractItemsFromResponse(response) : GeekListItem[]{
+  private extractItemsFromResponse(response) : GeekListItemSummary[]{
     return response.geeklist.item.map(item => {
-      return new GeekListItem(item.$.id, Number(item.$.objectid), item.$.objectname, new Date(item.$.postdate), Number(item.$.thumbs), Number(item.$.imageid), item.$.body);
+      return new GeekListItemSummary(item.$.id, Number(item.$.objectid), item.$.objectname, new Date(item.$.postdate), Number(item.$.thumbs), Number(item.$.imageid), item.$.body);
     });
   }
 

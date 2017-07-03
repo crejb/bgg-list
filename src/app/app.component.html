@@ -20,7 +20,9 @@
       <md-icon class="action-icon" (click)="search()">search</md-icon>
     </div>
 
-    <md-progress-bar *ngIf="searchInProgress" color="primary" mode="query"></md-progress-bar>
+    <div *ngIf="searchStatus == 'retrieving_list'">
+      <md-progress-bar color="primary" mode="query"></md-progress-bar>
+    </div>
 
     <div *ngIf='errorMessage'>
       <span color='warn'>{{errorMessage}}</span>
@@ -28,19 +30,25 @@
 
     <div *ngIf='geekList'>
       <h1>{{geekList.name}}</h1>
-      <div>
-        Filter by:
-        <md-input-container style='display:inline-block'>
-          <input mdInput placeholder="Name" [(ngModel)]="itemFilterTerm" (ngModelChange)="itemFilterTermChanged()">
-        </md-input-container>
-        <md-icon class="action-icon" (click)="clearItemFilterTerm()">close</md-icon>
+      <div *ngIf="searchStatus == 'retrieving_items'">
+        <p>Retrieving {{ geekList.items.length }} items</p>
+        <md-progress-bar color="primary" mode="query"></md-progress-bar>
       </div>
-      <div>
-        Sort by:
-        <app-geek-list-sort-criteria *ngFor="let sortType of sortTypes" [sortType]='sortType' [currentSortType]='currentSortType'
-          (sortToggled)='onSortToggled($event)'></app-geek-list-sort-criteria>
+      <div *ngIf="searchStatus == 'complete'">
+        <div>
+          Filter by:
+          <md-input-container style='display:inline-block'>
+            <input mdInput placeholder="Name" [(ngModel)]="itemFilterTerm" (ngModelChange)="itemFilterTermChanged()">
+          </md-input-container>
+          <md-icon class="action-icon" (click)="clearItemFilterTerm()">close</md-icon>
+        </div>
+        <div>
+          Sort by:
+          <app-geek-list-sort-criteria *ngFor="let sortType of sortTypes" [sortType]='sortType' [currentSortType]='currentSortType'
+            (sortToggled)='onSortToggled($event)'></app-geek-list-sort-criteria>
+        </div>
+        <app-geek-list-item *ngFor="let item of displayItems" [item]="item"></app-geek-list-item>
       </div>
-      <app-geek-list-item *ngFor="let item of displayItems" [item]="item"></app-geek-list-item>
     </div>
   </div>
 </div>

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { GeekListSearchService } from './geek-list-search.service';
+import { ItemDetailsRetrievalService } from './item-details-retrieval.service';
 import { GeekList } from './geek-list';
-import { GeekListItem } from './geek-list-item';
+import { GeekListItemDetail } from './geek-list-item-detail';
 import { SortTypes } from './sort-types.enum';
 import { SortDirections } from './sort-directions.enum';
 
@@ -16,25 +17,30 @@ export class AppComponent {
   public itemFilterTerm: string;
   public geekList: GeekList;
   public errorMessage;
-  public searchInProgress: boolean;
-  public displayItems: Array<GeekListItem>;
-  public sortTypes = [SortTypes.Name, SortTypes.Rating, SortTypes.Thumbs];
+  public searchStatus: string;
+  public originalItems: Array<GeekListItemDetail>;
+  public displayItems: Array<GeekListItemDetail>;
+  public sortTypes = [SortTypes.Name, SortTypes.Rating, SortTypes.Rank, SortTypes.Thumbs];
 
-  constructor(private listSearchService: GeekListSearchService) {
+  constructor(private listSearchService: GeekListSearchService, private itemsRetrievalService : ItemDetailsRetrievalService) {
     this.listSearchTerm = '196401';
   }
 
   search(): void {
     console.log('searching for ' + this.listSearchTerm);
-    this.searchInProgress = true;
+    this.searchStatus = 'retrieving_list';
     this.geekList = null;
     this.listSearchService.getList(this.listSearchTerm)
       .then(res => {
-        this.searchInProgress = false;
+        this.searchStatus = 'retrieving_items';
         this.geekList = res;
-        this.displayItems = this.geekList.items;
+        return this.itemsRetrievalService.retrieveItemsDetail(res);
+      }).then(items => {
+        this.searchStatus = 'complete';
+        this.originalItems = items;
+        this.displayItems = items;
       }).catch(err => {
-        this.searchInProgress = false;
+        this.searchStatus = 'complete';
         this.errorMessage = err;
       });
     //  .subscribe(
@@ -45,9 +51,9 @@ export class AppComponent {
   itemFilterTermChanged(): void {
     if (this.itemFilterTerm) {
       let filter = this.itemFilterTerm.toLowerCase();
-      this.displayItems = this.geekList.items.filter(i => i.name.toLowerCase().indexOf(filter) >= 0);
+      this.displayItems = this.originalItems.filter(i => i.summary.name.toLowerCase().indexOf(filter) >= 0);
     } else {
-      this.displayItems = this.geekList.items;
+      this.displayItems = this.originalItems;
     }
   }
 
@@ -61,7 +67,7 @@ export class AppComponent {
   onSortToggled(event: [SortTypes, SortDirections]): void {
     this.currentSortType = event[0];
     console.log('sorting by ' + event[0] + ':' + event[1]);
-    this.displayItems = this.geekList.items.sort((a, b) => {
+    this.displayItems = this.originalItems.sort((a, b) => {
       let lessThan = this.getSortValue(a, event[0]) < this.getSortValue(b, event[0]);
       if (event[1] == SortDirections.Descending) {
         return lessThan ? 1 : -1;
@@ -71,11 +77,12 @@ export class AppComponent {
     });
   }
 
-  getSortValue(item: GeekListItem, sortType: SortTypes): any {
+  getSortValue(item: GeekListItemDetail, sortType: SortTypes): any {
     switch (sortType) {
-      case SortTypes.Name: return item.name;
-      case SortTypes.Thumbs: return item.thumbs;
-      case SortTypes.Rating: return item.id;
+      case SortTypes.Name: return item.summary.name;
+      case SortTypes.Thumbs: return item.summary.thumbs;
+      case SortTypes.Rating: return item.rating;
+      case SortTypes.Rank: return item.rank;
     }
     return null;
   }

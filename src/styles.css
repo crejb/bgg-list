@@ -14,5 +14,9 @@
 }
 
 .action-icon {
-  cursor: pointer
+  cursor: pointer;
+}
+
+.inline-icon {
+  vertical-align: bottom;
 }

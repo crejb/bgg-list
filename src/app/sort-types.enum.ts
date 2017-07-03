@@ -1,5 +1,6 @@
 export enum SortTypes {
     Name,
     Rating,
-    Thumbs
+    Thumbs,
+    Rank
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { GeekListItem } from '../geek-list-item';
+import { GeekListItemDetail } from '../geek-list-item-detail';
+import { ItemDetailsRetrievalService } from '../item-details-retrieval.service';
 
 @Component({
   selector: 'app-geek-list-item',
@@ -8,7 +9,7 @@ import { GeekListItem } from '../geek-list-item';
 })
 export class GeekListItemComponent implements OnInit {
 
-  @Input() item: GeekListItem;
+  @Input() item: GeekListItemDetail;
 
   constructor() { }
 
