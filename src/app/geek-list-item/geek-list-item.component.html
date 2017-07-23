@@ -1,19 +1,28 @@
 <md-card class="item-card">
   <md-card-content>
     <div class="item-card-container">
-      <h3 style="flex:0 1 60%">{{item.summary.name}}</h3><md-spinner *ngIf="loading"></md-spinner>
+      <div style="flex:0 1 60%">
+        <a href="{{getItemLink()}}"><h3>{{item.summary.name}}</h3></a>
+        <p>{{item.summary.bodyText}}</p>
+      </div>
       <div style="flex:0 1 40%">
         <div style="display:flex;">
           <span class="item-card-value"><md-icon class="inline-icon">grade</md-icon>
-            <span *ngIf="!loading">{{item.rating}}</span>
+            {{item.rating}}
           </span>
           <span class="item-card-value"><md-icon class="inline-icon">list</md-icon>
-            <span *ngIf="!loading">{{item.rank}}</span>
+            {{item.rank}}
+          </span>
+          <span class="item-card-value"><md-icon class="inline-icon">shuffle</md-icon>
+            {{item.weighting}}
           </span>
         </div>
         <div style="display:flex;">
           <span class="item-card-value"><md-icon class="inline-icon">group</md-icon>
-            <span *ngIf="!loading">{{item.minPlayers}}-{{item.maxPlayers}}</span>
+            {{ getPlayersText() }}
+          </span>
+          <span class="item-card-value"><md-icon class="inline-icon">access_time</md-icon>
+            {{item.playingTime}}
           </span>
           <span class="item-card-value"><md-icon class="inline-icon">thumb_up</md-icon>
             {{item.summary.thumbs}}

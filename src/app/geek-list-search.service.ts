@@ -50,7 +50,7 @@ export class GeekListSearchService {
 
   private extractItemsFromResponse(response) : GeekListItemSummary[]{
     return response.geeklist.item.map(item => {
-      return new GeekListItemSummary(item.$.id, Number(item.$.objectid), item.$.objectname, new Date(item.$.postdate), Number(item.$.thumbs), Number(item.$.imageid), item.$.body);
+      return new GeekListItemSummary(item.$.id, Number(item.$.objectid), item.$.objectname, new Date(item.$.postdate), Number(item.$.thumbs), Number(item.$.imageid), (item.body && item.body.length ? item.body[0] : null));
     });
   }
 

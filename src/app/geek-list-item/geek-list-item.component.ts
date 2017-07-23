@@ -16,4 +16,14 @@ export class GeekListItemComponent implements OnInit {
   ngOnInit() {
   }
 
+  getItemLink() : string {
+    return `https://boardgamegeek.com/boardgame/${this.item.id}`;
+  }
+
+  public getPlayersText() : string {
+    if(this.item.minPlayers != this.item.maxPlayers){
+      return `${this.item.minPlayers}-${this.item.maxPlayers}`;
+    }
+    return `${this.item.minPlayers}`;
+  }
 }

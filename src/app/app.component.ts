@@ -75,6 +75,7 @@ export class AppComponent {
         return lessThan ? -1 : 1;
       }
     });
+    this.itemFilterTermChanged();
   }
 
   getSortValue(item: GeekListItemDetail, sortType: SortTypes): any {
@@ -82,7 +83,7 @@ export class AppComponent {
       case SortTypes.Name: return item.summary.name;
       case SortTypes.Thumbs: return item.summary.thumbs;
       case SortTypes.Rating: return item.rating;
-      case SortTypes.Rank: return item.rank;
+      case SortTypes.Rank: return Number.isNaN(item.rank) ? Number.MAX_SAFE_INTEGER : item.rank;
     }
     return null;
   }

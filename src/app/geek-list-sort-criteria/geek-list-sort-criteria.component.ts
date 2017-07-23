@@ -62,6 +62,9 @@ export class GeekListSortCriteriaComponent implements OnInit, OnChanges {
       case SortTypes.Thumbs:
         this.sortTypeName = 'Thumbs';
         break;
+      case SortTypes.Rank:
+        this.sortTypeName = 'Rank';
+        break;
     }
   }
 }
