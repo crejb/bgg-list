@@ -36,11 +36,69 @@
       </div>
       <div *ngIf="searchStatus == 'complete'">
         <div>
-          Filter by:
-          <md-input-container style='display:inline-block'>
-            <input mdInput placeholder="Name" [(ngModel)]="itemFilterTerm" (ngModelChange)="itemFilterTermChanged()">
-          </md-input-container>
-          <md-icon class="action-icon" (click)="clearItemFilterTerm()">close</md-icon>
+          <span>
+             <md-input-container style='display:inline-block'>
+              <input mdInput placeholder="Name" [(ngModel)]="itemFilterTerm" (ngModelChange)="itemFilterTermChanged()">
+            </md-input-container>
+            <md-icon class="action-icon" (click)="clearItemFilterTerm()">close</md-icon>
+          </span>
+        </div>
+        <div>
+          <span>Filters</span>
+          <!--<div style='display:inline-block'>
+            <button md-button (click)="myPopover.toggle($event)">Complexity <md-icon>arrow_drop_down</md-icon></button>
+            <mdl-popover #myPopover [style.width.px]="300">
+              <md-card class="item-card">
+                <md-card-content>
+                  <md-input-container style='display:inline-block'>
+                    <input mdInput placeholder="Min" [(ngModel)]="itemFilterTerm" (ngModelChange)="itemFilterTermChanged()">
+                  </md-input-container>
+                  <md-input-container style='display:inline-block'>
+                    <input mdInput placeholder="Max" [(ngModel)]="itemFilterTerm" (ngModelChange)="itemFilterTermChanged()">
+                  </md-input-container>
+                  <button md-raised-button (click)="myPopover.toggle($event)">Done</button>
+                </md-card-content>
+              </md-card>
+            </mdl-popover>
+          </div>
+
+          <div style='display:inline-block'>
+            <button md-button (click)="playersFilterPopover.toggle($event)">Players <md-icon>arrow_drop_down</md-icon></button>
+            <mdl-popover #playersFilterPopover [style.width.px]="300">
+              <md-card class="item-card">
+                <md-card-content>
+                  <div>
+                    <md-checkbox class="example-margin" [(ngModel)]="checked">1</md-checkbox>
+                    <md-checkbox class="example-margin" [(ngModel)]="checked">2</md-checkbox>
+                    <md-checkbox class="example-margin" [(ngModel)]="checked">3</md-checkbox>
+                    <md-checkbox class="example-margin" [(ngModel)]="checked">4</md-checkbox>
+                  </div>
+                  <div>
+                    <md-checkbox class="example-margin" [(ngModel)]="checked">5</md-checkbox>
+                    <md-checkbox class="example-margin" [(ngModel)]="checked">6</md-checkbox>
+                    <md-checkbox class="example-margin" [(ngModel)]="checked">7</md-checkbox>
+                    <md-checkbox class="example-margin" [(ngModel)]="checked">8+</md-checkbox>
+                  </div>
+                  
+                  <button md-raised-button (click)="playersFilterPopover.toggle($event)">Done</button>
+                </md-card-content>
+              </md-card>
+            </mdl-popover>
+          </div>-->
+
+
+          <div style='display:inline-block'>
+            <app-geek-list-filter-criteria [filterName]='"Complexity"'>
+              <app-geek-list-complexity-filter></app-geek-list-complexity-filter>
+            </app-geek-list-filter-criteria>
+          </div>
+
+          <div style='display:inline-block'>
+            <app-geek-list-filter-criteria [filterName]='"# Players"'>
+              <app-geek-list-player-count-filter></app-geek-list-player-count-filter>
+            </app-geek-list-filter-criteria>
+          </div>
+
         </div>
         <div>
           Sort by:
@@ -48,6 +106,7 @@
             (sortToggled)='onSortToggled($event)'></app-geek-list-sort-criteria>
         </div>
         <app-geek-list-item *ngFor="let item of displayItems" [item]="item"></app-geek-list-item>
+
       </div>
     </div>
   </div>

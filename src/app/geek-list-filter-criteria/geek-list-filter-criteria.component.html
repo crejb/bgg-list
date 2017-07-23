@@ -1,0 +1,9 @@
+<button md-button (click)="filterPopover.toggle($event)">{{filterName}} {{filterText}}<md-icon>arrow_drop_down</md-icon></button>
+<mdl-popover #filterPopover [style.width.px]="300">
+  <md-card class="item-card">
+    <md-card-content>
+      <ng-content></ng-content>
+      <button md-raised-button (click)="done($event)">Done</button>
+    </md-card-content>
+  </md-card>
+</mdl-popover>

@@ -12,6 +12,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-mdl/popover": "^0.6.4",
     "@angular/animations": "^4.2.2",
     "@angular/common": "^4.0.0",
     "@angular/compiler": "^4.0.0",
