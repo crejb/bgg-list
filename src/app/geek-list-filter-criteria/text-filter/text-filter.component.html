@@ -1,0 +1,4 @@
+<md-input-container style='display:inline-block'>
+  <input mdInput placeholder="Name" [(ngModel)]="filterText" (ngModelChange)="filterTextChanged()">
+</md-input-container>
+<md-icon class="action-icon" (click)="filterTextCleared()">close</md-icon>

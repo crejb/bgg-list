@@ -15,7 +15,6 @@ export class ComplexityFilterComponent extends FilterFieldComponentBase implemen
   }
 
   ngOnInit() {
-    console.log('complexity filter component is:' + this.itemFilter);
   }
 
 }

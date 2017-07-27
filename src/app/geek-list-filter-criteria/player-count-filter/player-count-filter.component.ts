@@ -15,7 +15,6 @@ export class PlayerCountFilterComponent extends FilterFieldComponentBase impleme
   }
 
   ngOnInit() {
-    console.log('player count filter component is:' + this.itemFilter);
   }
 
 }

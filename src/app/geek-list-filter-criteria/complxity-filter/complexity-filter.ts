@@ -1,4 +1,5 @@
 import { ListItemFilter } from '../list-item-filter';
+import { GeekListItemDetail } from '../../geek-list-item-detail';
 
 export class ComplexityFilter implements ListItemFilter{
   minimum : number;
@@ -22,7 +23,13 @@ export class ComplexityFilter implements ListItemFilter{
     return null;
   }
 
-  Passes(item: any): boolean {
-    throw new Error("Method not implemented.");
+  Passes(item: GeekListItemDetail): boolean {
+    if(this.minimum != null && item.weighting < this.minimum){
+      return false;
+    }
+    if(this.maximum != null && item.weighting > this.maximum){
+      return false;
+    }
+    return true;
   }
 }

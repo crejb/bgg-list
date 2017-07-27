@@ -12,11 +12,13 @@ import { GeekListSearchService } from './geek-list-search.service';
 import { ItemDetailsRetrievalService } from './item-details-retrieval.service';
 import { GeekListItemComponent } from './geek-list-item/geek-list-item.component';
 import { GeekListSortCriteriaComponent } from './geek-list-sort-criteria/geek-list-sort-criteria.component';
+import { GeekListService } from './geek-list.service';
 
 import { MdlPopoverModule } from '@angular-mdl/popover';
 import { GeekListFilterCriteriaComponent } from './geek-list-filter-criteria/geek-list-filter-criteria.component';
 import { ComplexityFilterComponent } from './geek-list-filter-criteria/complxity-filter/complexity-filter.component';
 import { PlayerCountFilterComponent } from './geek-list-filter-criteria/player-count-filter/player-count-filter.component';
+import { TextFilterComponent } from './geek-list-filter-criteria/text-filter/text-filter.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import { PlayerCountFilterComponent } from './geek-list-filter-criteria/player-c
     GeekListSortCriteriaComponent,
     GeekListFilterCriteriaComponent,
     ComplexityFilterComponent,
-    PlayerCountFilterComponent
+    PlayerCountFilterComponent,
+    TextFilterComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,7 @@ import { PlayerCountFilterComponent } from './geek-list-filter-criteria/player-c
     BrowserAnimationsModule,
     MdlPopoverModule
   ],
-  providers: [GeekListSearchService, ItemDetailsRetrievalService],
+  providers: [GeekListSearchService, ItemDetailsRetrievalService, GeekListService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

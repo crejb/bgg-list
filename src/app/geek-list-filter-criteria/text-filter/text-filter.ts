@@ -1,11 +1,11 @@
 import { ListItemFilter } from '../list-item-filter';
 import { GeekListItemDetail } from '../../geek-list-item-detail';
 
-export class PlayerCountFilter implements ListItemFilter{
-  value : number;
+export class TextFilter implements ListItemFilter{
+  value : string;
 
-  constructor(){
-    this.value = null;
+  constructor(value : string){
+    this.value = value;
   }
   
   GetText(): string {
@@ -13,6 +13,6 @@ export class PlayerCountFilter implements ListItemFilter{
   }
 
   Passes(item: GeekListItemDetail): boolean {
-    return this.value == null || (this.value >= item.minPlayers && this.value <= item.maxPlayers);
+    return !this.value || item.summary.name.toLowerCase().indexOf(this.value) >= 0;
   }
 }
